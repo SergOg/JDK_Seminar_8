@@ -6,9 +6,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner iScanner = new Scanner(System.in);
-        System.out.printf("\nВведите число потоков: ");
-        int p = iScanner.nextInt();
-        System.out.println(p);
+        while (true) {
+            System.out.print("\nВведите ссылку для скачивания (несколько через пробел) или укажмите выход ' ' ");
+            String s = iScanner.nextLine();
+            String[] sss = s.split(" ");
+            for (String e :
+                    sss) {
+                UrlLink urlLink = new UrlLink(e);
+                urlLink.start();
+            }
+            if (s.equals(" ")) break;
+        }
 
+        System.out.print("\nЗавершение работы программы! Поток ");
+        System.out.println(Thread.currentThread().getName());
     }
 }
