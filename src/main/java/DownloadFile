@@ -1,1 +1,33 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 
+public class DownloadFile {
+    private String url;
+
+    public DownloadFile(String url) {
+        this.url = url;
+    }
+
+    protected static void loader(String url) {
+        System.out.println("Загрузка файла: " + url + " ..");
+        try {
+            //String filelink = "https://a.d-cd.net/UHvvVS50vUP_dJLqBoEOkaPTNR4-1920.jpg";
+            String s = url.substring(url.length() - 3);
+            String oppath = Thread.currentThread().getName() + "." + s;
+            URL link = new URL(url);
+            InputStream ins = link.openStream();
+            ReadableByteChannel chh = Channels.newChannel(link.openStream());
+            FileOutputStream fos = new FileOutputStream(new File(oppath));
+            fos.getChannel().transferFrom(chh, 0, Long.MAX_VALUE);
+            fos.close();
+            chh.close();
+
+        } catch (Exception ioe) {
+            ioe.printStackTrace();
+        }
+    }
+}
